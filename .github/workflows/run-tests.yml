@@ -10,7 +10,6 @@ jobs:
        - uses: actions/setup-java@v4
          with:
           java-version: '21'
-	  #distribution: 'temurin'
        - name: Build with maven
          run: mvn clean install -DskipTests
        - name: Login to docker hub

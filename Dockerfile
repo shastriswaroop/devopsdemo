@@ -1,6 +1,5 @@
 FROM openjdk:21
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+COPY target/devopsdemo-0.0.1-SNAPSHOT.jar devopsdemo.jar
+EXPOSE 8080
+CMD ["java","-jar","devopsdemo.jar"]

@@ -1,23 +1,23 @@
 name: Run Tests on Push to session-1 and Pull Request to main
 
-on:
-  push:
-    branches:
-      - session-1
-  pull_request:
-    branches:
-      - main
 jobs:
-  build_test:
-      runs-on : ubuntu-latest
-      steps:
+	build_test:
+		runs-on: ubuntu-latest
+  
+		steps:
       - name: Checkout code
-      - uses: actions/checkout@v4
+	  	- uses: actions/checkout@v3
+		 
       - name: Setup Java code
-      - uses: actions/setup-java@v4.3.0
-        with:
-            java-version: '21'
-       
-      - name: Build with maven
-        run: mvn -B package --file pom.xml
-            
+		  - uses: actions/setup-java@v3
+		    with:
+  			  distribution: 'temurin'
+			    java-version: '21'
+		  - name: Build with maven
+        run: mvn clean install -DskipTests
+      - name: Login to docker hub
+        run : docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWOR}}
+   		- name: Build docker image
+        run: docker build -t shastriswaroop/springboot-demo
+  		- name: Publish image to docker hub 
+		    run: docker push shastriswaroop/springboot-demo:latest

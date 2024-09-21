@@ -1,0 +1,22 @@
+name: Run Tests on Push to session-1 and Pull Request to main
+
+on:
+  push:
+    branches:
+      - session-1
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'  # Specify the Java version you want to use

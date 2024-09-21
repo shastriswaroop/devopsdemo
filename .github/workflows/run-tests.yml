@@ -1,18 +1,20 @@
 name: Run Tests on Push to session-1 and Pull Request to main
 
 jobs:
-  build_test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-    - uses: actions/checkout@v4
-    - name: Setup Java code
-    - uses: actions/setup-java@v4
-      with:
-          java-version: '21'
-    - name: Build with maven
-      run: mvn clean install -DskipTests
-    - name: Login to docker hub
-      run : docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWOR}}
-    - name: Build docker image
-      run: docker build -t shastriswaroop/springboot-demo
+	build_test:
+ 		runs-on: ubuntu-latest
+		steps:
+				- name: Checkout code
+				- uses: actions/checkout@v4
+	 			- name: Setup Java code
+    		- uses: actions/setup-java@v4
+		      with:
+    	      java-version: '21'
+		    - name: Build with maven
+    		  run: mvn clean install -DskipTests
+    
+		    - name: Login to docker hub
+    		  run : docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWOR}}
+    
+		    - name: Build docker image
+    		  run: docker build -t shastriswaroop/springboot-demo
